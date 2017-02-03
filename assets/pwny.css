@@ -5,11 +5,21 @@
 	src: local('Source Code Pro'), local('SourceCodePro-Regular'), url(SourceCodePro-Regular.woff) format('woff');
 	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
-html,body {overflow:hidden;background-color:#000;}
+html,body {overflow:hidden;background-color:#334;}
 html,body,div,iframe {margin:0;padding:0;border:0 none;}
 button, select {font-family:"Helvetica Neue", "Calibri Light", Roboto, sans-serif;border:1px solid #333;margin:3px;font-size:1rem;padding:0.75rem 1.35rem;}
 iframe {display:block;border:1px solid #444;}
 html,body,#app{margin:0;padding:0;width:100%;height:100%;}
+#app {
+	box-sizing: border-box;
+	margin: 100px 0 0 0;
+	width: 100%;
+	height: calc(100%-50px);
+	overflow-x: hidden;
+	overflow-y: auto;
+	overflow-scrolling: touch;
+	padding: 20px;
+}
 #col1, #col2 {display:inline-block;}
 #col1 {width: 49.5%;height: 100%;float:left;overflow:auto;}
 #col1 .ace_editor {width:100%;height:85%;}
@@ -22,6 +32,94 @@ html,body,#app{margin:0;padding:0;width:100%;height:100%;}
 #templates {background-color:#000;color:#fff;}
 #syntax {background-color:#066;color:#fff;}
 #syntax option:checked {background-color:#033;}
+#logo {
+	position: fixed;
+	top: 0;
+	width: 199px;
+	height: 130px;
+}
+#drawer-toggle-label:before {
+	content: "";
+	display: block;
+	position: absolute;
+	height: 2px;
+	width: 24px;
+	background: #fff;
+	left: 13px;
+	top: 18px;
+	box-shadow: 0 6px 0 #fff, 0 12px 0 #fff;
+}
+
+#drawer-toggle-label {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 50px;
+	width: 50px;
+	z-index: 1;
+	background: transparent;
+}
+
+#drawer-toggle { display: none; }
+
+#drawer {
+	position: fixed;
+	top: 0;
+	padding-top: 50px;
+	height: 100%;
+	width: 250px;
+	background: #2f2f2f;
+	overflow-x: hidden;
+	overflow-y: auto;
+	left: -250px;
+ 	background:"";
+}
+
+#drawer ul {
+	list-style: none;
+	padding: 0;
+}
+
+#drawer li a {
+	display: block;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	font-family: 'Source Code Pro';
+}
+
+#drawer li button, #drawer li select {
+	display: block;
+	text-align: center;
+	font-family: 'Source Code Pro';
+	width: 290px;
+}
+
+#drawer li {
+	margin: 0;
+	width: 100%;
+	padding: 10px 0
+}
+
+#drawer { padding-top: 25px; }
+
+#drawer-toggle:checked ~ #drawer-toggle-label,
+#drawer-toggle:checked ~ header { left: calc(100% - 100px); }
+
+#drawer-toggle:checked ~ #drawer {
+	width: calc(100% - 50px);
+	left: 0;
+}
+
+#drawer-toggle:checked ~ #app { margin-left: 300px; }
+	@media screen and (min-width: 380px) {
+		#drawer-toggle:checked ~ #drawer-toggle-label,
+		#drawer-toggle:checked ~ #drawer {
+			width: 300px;
+			left: 0;
+		}
+}
 
 .sk-cube-grid {
 	width: 40px;

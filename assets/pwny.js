@@ -68,6 +68,29 @@
 
 		this.setupHtml = function() {
 			self.append(
+					self.createElement(
+						'img',
+						null,
+						[
+							['id', 'logo'],
+							['src', 'pwny.png']
+						]
+					),
+					'#app'
+			);
+			self.append(self.createElement('ul'),'#drawer');
+			self.append(
+				[
+					self.createElement('li', [self.createElement('button', 'Run', [['id', 'btn_run']])]),
+					self.createElement('li', [self.createElement('select', null, [['id', 'syntax']])]),
+					self.createElement('li', [self.createElement('button', 'Add', [['id', 'btn_add']])]),
+					self.createElement('li', [self.createElement('select', null, [['id', 'templates']])]),
+					self.createElement('li', [self.createElement('button', 'Delete', [['id', 'btn_delete']])]),
+					self.createElement('li', [self.createElement('button', 'Share', [['id', 'btn_share']])])
+				],
+				'#drawer ul'
+			);
+			self.append(
 				self.createElement(
 					'div',
 					null,
@@ -166,57 +189,13 @@
 				'#app'
 			);
 			self.append(
-				[
-					self.createElement(
-						'textarea',
-						null,
-						[
-							['id', 'textarea']
-						]
-					),
-					self.createElement(
-						'button',
-						'Run',
-						[
-							['id', 'btn_run']
-						]
-					),
-					self.createElement(
-						'select',
-						null,
-						[
-							['id', 'syntax']
-						]
-					),
-					self.createElement(
-						'button',
-						'Add Template',
-						[
-							['id', 'btn_add']
-						]
-					),
-					self.createElement(
-						'select',
-						null,
-						[
-							['id', 'templates']
-						]
-					),
-					self.createElement(
-						'button',
-						'Delete Template',
-						[
-							['id', 'btn_delete']
-						]
-					),
-					self.createElement(
-						'button',
-						'Share',
-						[
-							['id', 'btn_share']
-						]
-					)
-				],
+				self.createElement(
+					'textarea',
+					null,
+					[
+						['id', 'textarea']
+					]
+				),
 				'#col1'
 			);
 			self.append(
@@ -590,7 +569,7 @@
 
 			ace.require("ace/ext/language_tools");
 			EDITOR = ace.edit('textarea');
-			EDITOR.setTheme('ace/theme/monokai');
+			EDITOR.setTheme('ace/theme/tomorrow_night_eighties');
 
 			EDITOR.getSession().setMode('ace/mode/html');
 			EDITOR.$blockScrolling = Infinity;
