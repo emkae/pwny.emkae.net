@@ -578,9 +578,10 @@
 				fontSize: '10pt',
 				enableBasicAutocompletion: true,
 				enableSnippets: true,
-				enableLiveAutocompletion: false
+				enableLiveAutocompletion: false,
+				tabSize: 2,
+				useSoftTabs: false
 			});
-
 
 			self.loadFromHash();
 			self.fillSyntax();
