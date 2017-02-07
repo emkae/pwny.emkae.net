@@ -345,15 +345,15 @@
 							EDITOR.setValue(result);
 						else
 							window.alert('No valid token received');
-						hideLoading();
+						self.hideLoading();
 					});
 				} catch(ex) {
 					console.log(ex);
 					window.alert('No valid token received');
-					this.hideLoading();
+					self.hideLoading();
 				}
 			} else {
-				this.hideLoading();
+				self.hideLoading();
 			}
 		};
 
