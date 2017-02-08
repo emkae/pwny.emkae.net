@@ -1,8 +1,9 @@
 (function(window,document){
 
 	var Pwny = function() {
-
 		var self = this,
+				getWidth = function(){return window.innerWidth},
+				window_min_width = 1000,
 				LOCAL_STORAGE_TEMPLATE_NAME = 'codetest_templates',
 				SYNTAXES = [
 					'html',
@@ -536,14 +537,12 @@
 					}
 				});
 			};
-
 			window.mockhtml = function(){
-				// if (window.innerWidth <= 1000) {
-				// 	var col1 = document.querySelector('.col1');
-				// 	var col2 = document.querySelector('.col2');
-				// 	col1.classList.toggle('display_none');
-				// 	col2.classList.toggle('display_inline-block');
-				// }
+				if (getWidth() <= window_min_width) {
+					col1.style.display = 'none';
+					col2.style.display = 'block';
+					col2.style.width = '99%';
+				}
 				var val = '';
 				var syntax = self.getEditorSyntax();
 				if (syntax === 'html') {
@@ -593,10 +592,29 @@
 			};
 
 			document.addEventListener('keydown', function(evt){
-				if (evt.ctrlKey === true && evt.key === 'Enter') {
+				if(getWidth() <= window_min_width && evt.key === 'Escape') {
+					col1.style.display = 'block';
+					col2.style.display = 'none';
+					EDITOR.focus();
+				}
+				else if (evt.ctrlKey === true && evt.key === 'Enter') {
 					if (self.isCompilable() === true) window.mockhtml();
 				}
 			});
+			var onResizeEvent = function() {
+				if (getWidth() <= window_min_width) {
+					col1.style.display = 'block';
+					col1.style.width = '99%';
+					col2.style.display = 'none';
+				} else {
+					col1.style.display = 'inline-block';
+					col1.style.width = '49%';
+					col2.style.display = 'inline-block';
+					col2.style.width = '49%';
+				}
+			};
+			window.addEventListener('resize', onResizeEvent);
+			onResizeEvent();
 		};
 
 		return this;
