@@ -23,6 +23,8 @@
 				compression = {},
 				my_lzma = new window.LZMA('assets/lzma_worker.js');
 
+		this.version = 3;
+
 		this.append = function(element, target) {
 			target = target || document.body;
 			if (typeof target === 'string') target = document.querySelector(target);
@@ -323,29 +325,40 @@
 			return SYNTAXES.includes(syntax);
 		};
 
+		this.autoRun = function() {
+			window.mockhtml();
+			col1.style.display = 'none';
+			col2.style.display = 'block';
+			col2.style.width = '100%';
+		};
+
 		this.loadFromHash = function() {
 			var hash = window.location.hash,
 					loc = hash.indexOf('#!/'),
-					split = '',
+					virtual_url = '',
+					url_params = null,
 					syntax = 'html',
 					shared_code = '';
 			if (loc === 0 && hash.length > 3) {
+				virtual_url = hash.substring(3);
+				url_params = self.getUrlParams(virtual_url);
 				try {
-					split = hash.split('/');
-					if (split.length === 2) {
-						shared_code = split[1];
-					} else if (split.length === 3) {
-						shared_code = split[2];
-						syntax = split[1];
-					}
-					if (SYNTAXES.includes(syntax) === true) {
+					shared_code = url_params.get('t');
+					syntax = url_params.get('s');
+					if (self.isAllowedSyntax(syntax) === true) {
 						EDITOR.getSession().setMode('ace/mode/'+syntax);
 					}
-					this.compression.decompress(shared_code, function(err, result){
-						if (!err)
+					self.compression.decompress(shared_code, function(err, result){
+						if (!err) {
 							EDITOR.setValue(result);
-						else
+							if (url_params.get('a') === '1') {
+								self.hideLoading();
+								self.autoRun();
+								return;
+							}
+						} else {
 							window.alert('No valid token received');
+						}
 						self.hideLoading();
 					});
 				} catch(ex) {
@@ -524,7 +537,7 @@
 				evt.preventDefault();
 				var syntax = self.getEditorSyntax();
 				self.compression.compress(EDITOR.getValue(), function(err, result){
-					var link = window.location.protocol + '//'+window.location.hostname+'/#!/' + syntax + '/' + result.toString();
+					var link = window.location.protocol + '//'+window.location.hostname+'/#!/?s=' + syntax + '&t=' + result.toString();
 					// http://stackoverflow.com/questions/15090220/maximum-length-for-url-in-chrome-browser
 					// var max_link_length = 2083;
 					// not giving a fuck about other browsers than chrome
@@ -582,7 +595,6 @@
 				useSoftTabs: false
 			});
 
-			self.loadFromHash();
 			self.fillSyntax();
 
 			document.getElementById('syntax').onchange = function(evt) {
@@ -615,6 +627,7 @@
 			};
 			window.addEventListener('resize', onResizeEvent);
 			onResizeEvent();
+			self.loadFromHash();
 		};
 
 		return this;
