@@ -82,13 +82,15 @@
 					'#app'
 			);
 			self.append(self.createElement('ul'),'#drawer');
+			self.append(self.createElement('input', null, [['id', 'file'], ['name', 'file'], ['type', 'file']]));
 			self.append(
 				[
 					self.createElement('li', [self.createElement('button', 'Run', [['id', 'btn_run']])]),
 					self.createElement('li', [self.createElement('select', null, [['id', 'syntax']])]),
-					self.createElement('li', [self.createElement('button', 'Add', [['id', 'btn_add']])]),
+					self.createElement('li', [self.createElement('button', 'Open File', [['id', 'btn_file']])]),
+					self.createElement('li', [self.createElement('button', 'Add Template', [['id', 'btn_add']])]),
 					self.createElement('li', [self.createElement('select', null, [['id', 'templates']])]),
-					self.createElement('li', [self.createElement('button', 'Delete', [['id', 'btn_delete']])]),
+					self.createElement('li', [self.createElement('button', 'Delete Template', [['id', 'btn_delete']])]),
 					self.createElement('li', [self.createElement('button', 'Share', [['id', 'btn_share']])])
 				],
 				'#drawer ul'
@@ -627,6 +629,20 @@
 			};
 			window.addEventListener('resize', onResizeEvent);
 			onResizeEvent();
+			var loadFromFile = function(evt) {
+				var files = evt.target.files; // FileList object
+				var fr = new FileReader();
+				fr.onload = function(e) {
+					EDITOR.setValue(e.target.result);
+				};
+				if (files && files.length) {
+					fr.readAsText(files[0]);
+				}
+			};
+			document.getElementById('file').addEventListener('change', loadFromFile, false);
+			btn_file.onclick = function(){
+				file.click();
+			};
 			self.loadFromHash();
 		};
 
