@@ -2,7 +2,7 @@
 
 	var Pwny = function() {
 		var self = this,
-				getWidth = function(){return window.innerWidth},
+				getWidth = function(){return window.innerWidth;},
 				window_min_width = 1000,
 				LOCAL_STORAGE_TEMPLATE_NAME = 'codetest_templates',
 				SYNTAXES = [
@@ -329,9 +329,23 @@
 
 		this.autoRun = function() {
 			window.mockhtml();
-			col1.style.display = 'none';
+			var app = document.querySelector('#app');
+			var logo = document.querySelector('#logo');
+			var drawertoggle = document.querySelector('#drawer-toggle');
+			var drawerlabel = document.querySelector('#drawer-toggle-label');
+			var drawer = document.querySelector('#drawer');
+			var ifr = document.querySelector('#output');
+			logo.parentNode.removeChild(logo);
+			drawer.parentNode.removeChild(drawer);
+			drawerlabel.parentNode.removeChild(drawerlabel);
+			drawertoggle.parentNode.removeChild(drawertoggle);
+			app.style.margin = '0';
+			app.style.padding = '0';
 			col2.style.display = 'block';
 			col2.style.width = '100%';
+			col1.parentNode.removeChild(col1);
+			ifr.style.border = '0 none';
+			ifr.style.marginTop = '0';
 		};
 
 		this.loadFromHash = function() {
@@ -615,20 +629,6 @@
 					if (self.isCompilable() === true) window.mockhtml();
 				}
 			});
-			var onResizeEvent = function() {
-				if (getWidth() <= window_min_width) {
-					col1.style.display = 'block';
-					col1.style.width = '99%';
-					col2.style.display = 'none';
-				} else {
-					col1.style.display = 'inline-block';
-					col1.style.width = '49%';
-					col2.style.display = 'inline-block';
-					col2.style.width = '49%';
-				}
-			};
-			window.addEventListener('resize', onResizeEvent);
-			onResizeEvent();
 			var loadFromFile = function(evt) {
 				var files = evt.target.files; // FileList object
 				var fr = new FileReader();
