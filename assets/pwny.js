@@ -608,7 +608,7 @@
 				enableSnippets: true,
 				enableLiveAutocompletion: false,
 				tabSize: 2,
-				useSoftTabs: false
+				useSoftTabs: true
 			});
 
 			self.fillSyntax();
