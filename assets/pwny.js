@@ -564,7 +564,7 @@
         var syntax = self.getEditorSyntax();
         var cursorPosition = EDITOR.getCursorPosition();
         var max_link_length = 8000;
-        var port = parseInt(window.location.port, 10);
+        var port = (window.location.port === "") ? 80 : parseInt(window.location.port, 10);
         if (port === 80 || port === 443) {
           port = '';
         } else {
