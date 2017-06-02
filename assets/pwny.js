@@ -285,7 +285,7 @@
           shared_code = url_params.get('t');
           syntax = url_params.get('s');
           if (self.isAllowedSyntax(syntax) === true) {
-            self.setEditorSyntax(s);
+            self.setEditorSyntax(syntax);
           }
           self.compression.decompress(shared_code, function(err, result){
             if (!err) {
