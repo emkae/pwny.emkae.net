@@ -1,21 +1,48 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>PWNY CodeTest</title>
-		<link rel="stylesheet" href="assets/pwny.css"></link>
-	</head>
-	<body>
-		<input id="drawer-toggle" type="checkbox">
-		<label id="drawer-toggle-label" for="drawer-toggle"></label>
-		<nav id="drawer"></nav>
-		<div id="app"></div>
-		<script src="assets/ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/ace/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/lzma.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/pwny.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-		</script>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>PWNY CodeTest</title>
+    <link rel="stylesheet" href="assets/pwny.css" />
+  </head>
+  <body>
+    <input id="drawer-toggle" type="checkbox">
+    <label id="drawer-toggle-label" for="drawer-toggle"></label>
+    <nav id="drawer"></nav>
+    <div id="loading" class="loader"></div>
+    <div id="app"></div>
+    <div id="shareDialogue" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Share URL" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h5 class="modal-title">Share</h5>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+              <input type="text" class="form-control" id="shareUrlBox" readonly="true">
+              <span class="input-group-btn">
+                <button id="copyShareUrlButton" data-dismiss="modal" data-clipboard-target="#shareUrlBox" class="btn btn-success" type="button">Copy &amp; Close</button>
+              </span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="assets/ace/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+    <script src="assets/lzma.js" type="text/javascript" charset="utf-8"></script>
+    <script src="assets/pwny.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/bootstrap/themes/slate/bootstrap.min.css" />
+    <script src="assets/jquery/jquery-3.2.1.min.js"></script>
+    <script src="assets/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/clipboard.min.js"></script>
+  </body>
 </html>

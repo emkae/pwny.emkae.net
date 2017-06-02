@@ -98,85 +98,6 @@
         '#drawer ul'
       );
       self.append(
-        self.createElement(
-          'div',
-          null,
-          [
-            ['id', 'loading'],
-            ['class', 'sk-cube-grid']
-          ]
-        ),
-        '#app'
-      );
-      self.append(
-        [
-          self.createElement(
-            'div',
-            null,
-            [
-              ['class', 'sk-cube sk-cube1']
-            ]
-          ),
-          self.createElement(
-            'div',
-            null,
-            [
-              ['class', 'sk-cube sk-cube2']
-            ]
-          ),
-          self.createElement(
-            'div',
-            null,
-            [
-              ['class', 'sk-cube sk-cube3']
-            ]
-          ),
-          self.createElement(
-            'div',
-            null,
-            [
-              ['class', 'sk-cube sk-cube4']
-            ]
-          ),
-          self.createElement(
-            'div',
-            null,
-            [
-              ['class', 'sk-cube sk-cube5']
-            ]
-          ),
-          self.createElement(
-            'div',
-            null,
-            [
-              ['class', 'sk-cube sk-cube6']
-            ]
-          ),
-          self.createElement(
-            'div',
-            null,
-            [
-              ['class', 'sk-cube sk-cube7']
-            ]
-          ),
-          self.createElement(
-            'div',
-            null,
-            [
-              ['class', 'sk-cube sk-cube8']
-            ]
-          ),
-          self.createElement(
-            'div',
-            null,
-            [
-              ['class', 'sk-cube sk-cube9']
-            ]
-          )
-        ],
-        '#loading'
-      );
-      self.append(
         [
           self.createElement(
             'div',
@@ -398,17 +319,16 @@
     };
 
     this.showLoading = function() {
-      loading.style.display = 'block';
-      app.style.height = 'auto';
-      col1.style.display = 'none';
-      col2.style.display = 'none';
+      app.style.display = 'none';
+      $('#loading').css({display: 'block'});
+      $('#drawer-toggle-label').css({display: 'none'});
     };
 
     this.hideLoading = function() {
-      loading.style.display = 'none';
-      app.style.height = '100%';
-      col1.style.display = 'inline-block';
-      col2.style.display = 'inline-block';
+      $( "#loading" ).fadeOut("slow", function() {
+        $('#drawer-toggle-label').fadeIn("slow");
+        $(app).fadeIn("slow");
+      });
     };
 
     this.deleteTemplate = function() {
@@ -492,34 +412,15 @@
     };
 
     this.showShareWindow = function(link) {
-      self.showLoading();
-      var msg = 'Share this link';
-      var win = document.createElement('div');
-      var title_el = document.createElement('h1');
-      var linkbox = document.createElement('input');
-      var close_btn = document.createElement('button');
-      linkbox.setAttribute('readonly', true);
-      linkbox.value = link;
-      win.setAttribute('style', 'background-color:#222;width:50%;border:1px solid #333;margin:auto;text-align:center;padding:50px;border-radius:5px;');
-      title_el.setAttribute('style', 'color:#fff;text-transform:uppercase;font-family:"Source Code Pro","Lucida Console", Courier, monospace;');
-      linkbox.setAttribute('style', 'display:block;width:75%;padding:5px;font-size:20px;margin:auto;');
-      close_btn.setAttribute('style', 'display:block;font-size:28px;padding:5px;margin:20px auto;');
-      close_btn.innerHTML = 'CLOSE';
-      close_btn.onclick = function(evt) {
-        evt.preventDefault();
-        this.parentNode.parentNode.removeChild(this.parentNode);
-        self.hideLoading();
-      };
-      title_el.innerHTML = msg;
-      win.appendChild(title_el);
-      win.appendChild(linkbox);
-      win.appendChild(close_btn);
-      document.body.appendChild(win);
-      linkbox.focus();
-      linkbox.select();
+      var $shareDialogue = $('#shareDialogue');
+      var shareUrlBox = $shareDialogue.find('#shareUrlBox');
+      shareUrlBox.val(link);
+      $shareDialogue.modal('toggle');
     };
 
     this.init = function() {
+      self.showLoading();
+      new Clipboard('#copyShareUrlButton');
       self.setupHtml();
       document.getElementById('templates').onchange = function() {
         var templates = window.localStorage.getItem(LOCAL_STORAGE_TEMPLATE_NAME) || '{}';
