@@ -102,7 +102,8 @@
           'div',
           null,
           [
-            ['id', 'table']
+            ['id', 'table'],
+            ['class', 'container']
           ]
         ),
         '#app'
@@ -112,7 +113,8 @@
           'div',
           null,
           [
-            ['id', 'table-row']
+            ['id', 'table-row'],
+            ['class', 'row']
           ]
         ),
         '#table'
@@ -123,14 +125,16 @@
             'div',
             null,
             [
-              ['id', 'col1']
+              ['id', 'col1'],
+              ['class', 'col-xs-6']
             ]
           ),
           self.createElement(
             'div',
             null,
             [
-              ['id', 'col2']
+              ['id', 'col2'],
+              ['class', 'col-xs-6']
             ]
           )
         ],
@@ -288,6 +292,7 @@
       col2.style.width = '100%';
       col1.parentNode.removeChild(col1);
       $(ifr).addClass('fullscreen');
+      $(col2).removeClass('col-xs-6');
       $('#table').addClass('fullscreen');
     };
 
@@ -386,10 +391,14 @@
     this.showAndHideRun = function() {
       var is_compilable = self.isCompilable();
       if (is_compilable === false) {
-        col2.style.display = 'none';
+        $(col1).removeClass('col-xs-6');
+        $(col1).addClass('col-xs-12');
+        $(col2).addClass('hidden');
         btn_run.style.display = 'none';
       } else {
-        col2.style.display = 'table-cell';
+        $(col1).addClass('col-xs-6');
+        $(col1).removeClass('col-xs-12');
+        $(col2).removeClass('hidden');
         btn_run.style.display = 'inline-block';
       }
     };
