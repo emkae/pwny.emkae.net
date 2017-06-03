@@ -98,6 +98,26 @@
         '#drawer ul'
       );
       self.append(
+        self.createElement(
+          'div',
+          null,
+          [
+            ['id', 'table']
+          ]
+        ),
+        '#app'
+      );
+      self.append(
+        self.createElement(
+          'div',
+          null,
+          [
+            ['id', 'table-row']
+          ]
+        ),
+        '#table'
+      );
+      self.append(
         [
           self.createElement(
             'div',
@@ -112,9 +132,9 @@
             [
               ['id', 'col2']
             ]
-          ),
+          )
         ],
-        '#app'
+        '#table-row'
       );
       self.append(
         self.createElement(
@@ -267,8 +287,8 @@
       col2.style.display = 'block';
       col2.style.width = '100%';
       col1.parentNode.removeChild(col1);
-      ifr.style.border = '0 none';
-      ifr.style.marginTop = '0';
+      $(ifr).addClass('fullscreen');
+      $('#table').addClass('fullscreen');
     };
 
     this.loadFromHash = function() {
@@ -369,7 +389,7 @@
         col2.style.display = 'none';
         btn_run.style.display = 'none';
       } else {
-        col2.style.display = 'inline-block';
+        col2.style.display = 'table-cell';
         btn_run.style.display = 'inline-block';
       }
     };
