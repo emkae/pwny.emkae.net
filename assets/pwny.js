@@ -532,11 +532,6 @@
       };
 
       window.mockhtml = function(){
-        if (getWidth() <= window_min_width) {
-          col1.style.display = 'none';
-          col2.style.display = 'block';
-          col2.style.width = '99%';
-        }
         var val = '';
         var syntax = self.getEditorSyntax();
         if (syntax === 'html') {
