@@ -650,6 +650,9 @@
       btn_file.onclick = function(){
         file.click();
       };
+      $("#shareDialogue").on("hidden.bs.modal", function () {
+        $('#shortenUrlCheckbox').prop('checked', false);
+      });
       $('#shortenUrlCheckbox').on('change', function(){
         if (this.checked === true) {
           self.shortenUrl($('#shareUrlBox').val(), function(data) {
