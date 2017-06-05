@@ -4,6 +4,7 @@
 
   var Pwny = function() {
     var self = this,
+        googleapikeys = {},
         getWidth = function(){return window.innerWidth;},
         window_min_width = 1000,
         LOCAL_STORAGE_TEMPLATE_NAME = 'codetest_templates',
@@ -26,6 +27,18 @@
         my_lzma = new window.LZMA('assets/lzma_worker.js');
 
     this.version = 3;
+
+    this.getGoogleApiKey = function(k) {
+      return googleapikeys[k];
+    };
+
+    this.getGoogleApiKeys = function() {
+      return googleapikeys;
+    };
+
+    this.setGoogleApiKeys = function(apikeys) {
+      googleapikeys = apikeys;
+    };
 
     this.append = function(element, target) {
       target = target || document.body;
@@ -440,6 +453,40 @@
         return input && typeof input === "object" && (input instanceof Array || (input.buffer && input.buffer instanceof ArrayBuffer));
     };
 
+    this.initGoogleApiKeys = function(cb) {
+      $.ajax({
+        url: 'googleapikeys.json',
+        method: "GET",
+      }).done(function(data){
+        self.setGoogleApiKeys(data);
+        if (cb) {
+          cb();
+        }
+      });
+    };
+
+    this.shortenUrl = function(longUrl, cb) {
+      var apikey = self.getGoogleApiKey('urlshortener');
+      if (!apikey) {
+        self.initGoogleApiKeys(function(){
+          self.shortenUrl(longUrl, cb);
+        });
+      } else {
+        $.ajax({
+          url: 'https://www.googleapis.com/urlshortener/v1/url?key=' + apikey,
+          method: "POST",
+          processData: false,
+          dataType: "json",
+          contentType: "application/json",
+          data: JSON.stringify({
+            "longUrl": longUrl
+          })
+        }).done(function(data){
+          cb(data);
+        });
+      }
+    };
+
     this.showShareWindow = function(link) {
       var $shareDialogue = $('#shareDialogue');
       var shareUrlBox = $shareDialogue.find('#shareUrlBox');
@@ -603,6 +650,21 @@
       btn_file.onclick = function(){
         file.click();
       };
+      $('#shortenUrlCheckbox').on('change', function(){
+        if (this.checked === true) {
+          self.shortenUrl($('#shareUrlBox').val(), function(data) {
+            if (data.kind === 'urlshortener#url') {
+              $('#shareUrlBox').val(data.id);
+            }
+          });
+        } else {
+          getShareableLink({}, function(err, link){
+            if (err === false) {
+              $('#shareUrlBox').val(link);
+            }
+          });
+        }
+      });
       $(window).on('hashchange', function(){window.location.reload();});
       self.loadFromHash();
     };
