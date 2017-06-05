@@ -12,8 +12,9 @@
   src: local('Source Code Pro'), local('SourceCodePro-Regular'), url(SourceCodePro-Regular.woff) format('woff');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
-html,body {overflow:hidden;}
+html,body {overflow:hidden;background-color:#272b30;}
 html,body,div,iframe {margin:0;padding:0;border:0 none;}
+#drawer-toggle {display:none;}
 #drawer button,
 #drawer select {font-family:"Helvetica Neue", "Calibri Light", Roboto, sans-serif;border:1px solid #333;margin:3px;font-size:1rem;padding:0.75rem 1.35rem;}
 #app iframe {display:block;border:1px solid #444;margin-top:0;}
@@ -225,7 +226,7 @@ html,body,#app{margin:0;padding:0;width:100%;height:100%;}
     <nav id="drawer"></nav>
     <div id="loading" class="loader"></div>
     <div id="app"></div>
-    <div id="shareDialogue" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Share URL" aria-hidden="true">
+    <div style="display:none;" id="shareDialogue" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Share URL" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
