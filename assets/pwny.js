@@ -603,6 +603,7 @@
       btn_file.onclick = function(){
         file.click();
       };
+      $(window).on('hashchange', function(){self.loadFromHash();});
       self.loadFromHash();
     };
 
