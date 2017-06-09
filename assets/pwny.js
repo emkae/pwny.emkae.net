@@ -669,6 +669,9 @@
         }
       });
       $(window).on('hashchange', function(){window.location.reload();});
+      $('#drawer-toggle-label').on('click', function(){
+        window.setTimeout(function(){EDITOR.resize();}, 1);
+      });
       self.loadFromHash();
     };
 
