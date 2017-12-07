@@ -626,7 +626,7 @@
                                 enableBasicAutocompletion: true,
                                 enableSnippets: true,
                                 enableLiveAutocompletion: false,
-                                tabSize: 2,
+                                tabSize: 8,
                                 useSoftTabs: true
                         });
 
