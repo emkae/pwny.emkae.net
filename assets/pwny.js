@@ -416,19 +416,19 @@
                         if (is_compilable === false) {
                                 window.$('#col1').removeClass('col-xs-6');
                                 window.$('#col1').addClass('col-xs-12');
-                                window.$('col2').addClass('hidden');
+                                window.$('#col2').addClass('hidden');
                         } else {
-                                window.$('col1').addClass('col-xs-6');
-                                window.$('col1').removeClass('col-xs-12');
-                                window.$('col2').removeClass('hidden');
+                                window.$('#col1').addClass('col-xs-6');
+                                window.$('#col1').removeClass('col-xs-12');
+                                window.$('#col2').removeClass('hidden');
                         }
                 };
 
                 this.showAndHideRun = function() {
                         var is_compilable = self.isCompilable();
-                        window.$('col1').removeClass('col-xs-6');
-                        window.$('col1').addClass('col-xs-12');
-                        window.$('col2').addClass('hidden');
+                        window.$('#col1').removeClass('col-xs-6');
+                        window.$('#col1').addClass('col-xs-12');
+                        window.$('#col2').addClass('hidden');
                         if (is_compilable === false) {
                                 window.$('#btn_run').get(0).style.display = 'none';
                         } else {
