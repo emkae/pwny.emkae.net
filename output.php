@@ -1,4 +1,9 @@
 <?php
+// Install PSR-4-compatible class autoloader
+spl_autoload_register(function($class){
+        require 'lib' . DIRECTORY_SEPARATOR
+        . str_replace('\\', DIRECTORY_SEPARATOR, ltrim($class, '\\')).'.php';
+});
 
 $input = '';
 $syntax = '';
@@ -23,6 +28,11 @@ if ($input === '') die();
 switch($syntax) {
 case 'javascript':
         $output = '<script>'.$input.'</script>';
+        break;
+case 'markdown':
+        $skel = file_get_contents('./lib/com/walialu/markdown-style/markdown-skel.html');
+        $transformed = Michelf\MarkdownExtra::defaultTransform($input);
+        $output = str_replace('{{content}}', $transformed, $skel);
         break;
 default:
         $output = $input;
