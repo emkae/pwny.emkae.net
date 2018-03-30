@@ -406,7 +406,7 @@
                 };
 
                 this.isCompilable = function() {
-                        var comp = ['html', 'javascript', 'markdown'];
+                        var comp = ['html', 'javascript', 'markdown', 'scss'];
                         var current_syntax = this.getEditorSyntax();
                         return comp.includes(current_syntax);
                 };

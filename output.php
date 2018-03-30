@@ -34,6 +34,15 @@ case 'markdown':
         $transformed = Michelf\MarkdownExtra::defaultTransform($input);
         $output = str_replace('{{content}}', $transformed, $skel);
         break;
+case 'scss':
+        require './lib/scssphp/scss.inc.php';
+        $scss = new scssc();
+        try {
+                $output = $scss->compile($input);
+        } catch (Exception $ex) {
+                $output = $ex->getMessage();
+        }
+        break;
 default:
         $output = $input;
         break;
