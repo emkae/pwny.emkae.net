@@ -145,7 +145,7 @@
                                                 null,
                                                 [
                                                         ['id', 'col1'],
-                                                        ['class', 'col-xs-6']
+                                                        ['class', 'col-sm-6']
                                                 ]
                                         ),
                                         self.createElement(
@@ -153,7 +153,7 @@
                                                 null,
                                                 [
                                                         ['id', 'col2'],
-                                                        ['class', 'col-xs-6']
+                                                        ['class', 'col-sm-6']
                                                 ]
                                         )
                                 ],
@@ -315,7 +315,7 @@
                         col2.style.width = '100%';
                         col1.parentNode.removeChild(col1);
                         $(ifr).addClass('fullscreen');
-                        $(col2).removeClass('col-xs-6');
+                        $(col2).removeClass('col-sm-6');
                         $('#table').addClass('fullscreen');
                 };
 
@@ -414,20 +414,20 @@
                 this.showAndHideOutput = function() {
                         var is_compilable = self.isCompilable();
                         if (is_compilable === false) {
-                                window.$('#col1').removeClass('col-xs-6');
-                                window.$('#col1').addClass('col-xs-12');
+                                window.$('#col1').removeClass('col-sm-6');
+                                window.$('#col1').addClass('col-sm-12');
                                 window.$('#col2').addClass('hidden');
                         } else {
-                                window.$('#col1').addClass('col-xs-6');
-                                window.$('#col1').removeClass('col-xs-12');
+                                window.$('#col1').addClass('col-sm-6');
+                                window.$('#col1').removeClass('col-sm-12');
                                 window.$('#col2').removeClass('hidden');
                         }
                 };
 
                 this.showAndHideRun = function() {
                         var is_compilable = self.isCompilable();
-                        window.$('#col1').removeClass('col-xs-6');
-                        window.$('#col1').addClass('col-xs-12');
+                        window.$('#col1').removeClass('col-sm-6');
+                        window.$('#col1').addClass('col-sm-12');
                         window.$('#col2').addClass('hidden');
                         if (is_compilable === false) {
                                 window.$('#btn_run').get(0).style.display = 'none';
