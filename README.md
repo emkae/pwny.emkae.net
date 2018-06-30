@@ -1,4 +1,5 @@
-# pwny.walialu.com
+pwny.gorilla.moe
+================
 
-- [pwny.walialu.com](https://pwny.walialu.com/)
-- [pwny-nossl.walialu.com (Non SSL)](http://pwny-nossl.walialu.com/)
+- [pwny.gorilla.moe](https://pwny.gorilla.moe/)
+- [pwny-nossl.gorilla.moe (Non SSL)](http://pwny-nossl.gorilla.moe/)
