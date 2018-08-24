@@ -4,7 +4,6 @@
 
         var Pwny = function() {
                 var self = this,
-                        googleapikeys = {},
                         getWidth = function() {
                                 return window.innerWidth;
                         },
@@ -35,18 +34,6 @@
                         my_lzma = new window.LZMA("assets/lzma_worker.js");
 
                 this.version = 3;
-
-                this.getGoogleApiKey = function(k) {
-                        return googleapikeys[k];
-                };
-
-                this.getGoogleApiKeys = function() {
-                        return googleapikeys;
-                };
-
-                this.setGoogleApiKeys = function(apikeys) {
-                        googleapikeys = apikeys;
-                };
 
                 this.append = function(element, target) {
                         target = target || document.body;
@@ -377,6 +364,10 @@
                                                         if (!err) {
                                                                 EDITOR.setValue(result);
                                                                 EDITOR.resize(true);
+                                                                var title = url_params.get("title");
+                                                                if (title) {
+                                                                        document.title = decodeURIComponent(title);
+                                                                }
                                                                 var line = url_params.get("l");
                                                                 if (line) {
                                                                         var column =
@@ -547,42 +538,6 @@
                         );
                 };
 
-                this.initGoogleApiKeys = function(cb) {
-                        window.$.ajax({
-                                url: "googleapikeys.json",
-                                method: "GET"
-                        }).done(function(data) {
-                                self.setGoogleApiKeys(data);
-                                if (cb) {
-                                        cb();
-                                }
-                        });
-                };
-
-                this.shortenUrl = function(longUrl, cb) {
-                        var apikey = self.getGoogleApiKey("urlshortener");
-                        if (!apikey) {
-                                self.initGoogleApiKeys(function() {
-                                        self.shortenUrl(longUrl, cb);
-                                });
-                        } else {
-                                window.$.ajax({
-                                        url:
-                                                "https://www.googleapis.com/urlshortener/v1/url?key=" +
-                                                apikey,
-                                        method: "POST",
-                                        processData: false,
-                                        dataType: "json",
-                                        contentType: "application/json",
-                                        data: JSON.stringify({
-                                                longUrl: longUrl
-                                        })
-                                }).done(function(data) {
-                                        cb(data);
-                                });
-                        }
-                };
-
                 this.showShareWindow = function(link) {
                         var $shareDialogue = window.$("#shareDialogue");
                         var shareUrlBox = $shareDialogue.find("#shareUrlBox");
@@ -662,6 +617,20 @@
                                 } else {
                                         port = ":" + port;
                                 }
+                                var title = window.$("#shareUrlTitle").val();
+                                var fullscreen = window.
+                                        $("#shareUrlFullscreen").
+                                        is(":checked");
+                                if (title.length) {
+                                        title =
+                                                "&title=" +
+                                                encodeURIComponent(title);
+                                }
+                                if (fullscreen) {
+                                        fullscreen = "&a=1";
+                                } else {
+                                        fullscreen = "";
+                                }
                                 self.compression.compress(
                                         EDITOR.getValue(),
                                         function(err, result) {
@@ -674,6 +643,8 @@
                                                         port +
                                                         "/#!/?s=" +
                                                         syntax +
+                                                        title +
+                                                        fullscreen +
                                                         "&c=" +
                                                         cursorPosition.column +
                                                         "&l=" +
@@ -799,41 +770,32 @@
                         window.$("#shareDialogue").on(
                                 "hidden.bs.modal",
                                 function() {
-                                        window.$("#shortenUrlCheckbox").prop(
+                                        window.$("#shareUrlFullscreen").prop(
                                                 "checked",
                                                 false
                                         );
                                 }
                         );
-                        window.$("#shortenUrlCheckbox").on(
+                        window.$("#shareUrlFullscreen").on(
                                 "change",
                                 function() {
-                                        if (this.checked === true) {
-                                                self.shortenUrl(
-                                                        window.
-                                                                $("#shareUrlBox").
-                                                                val(),
-                                                        function(data) {
-                                                                if (
-                                                                        data.kind ===
-                                                                        "urlshortener#url"
-                                                                ) {
-                                                                        window.$("#shareUrlBox").val(data.id);
-                                                                }
-                                                        }
-                                                );
-                                        } else {
-                                                getShareableLink({}, function(
-                                                        err,
-                                                        link
-                                                ) {
-                                                        if (err === false) {
-                                                                window.$("#shareUrlBox").val(link);
-                                                        }
-                                                });
-                                        }
+                                        getShareableLink({}, function(
+                                                err,
+                                                link
+                                        ) {
+                                                if (err === false) {
+                                                        window.$("#shareUrlBox").val(link);
+                                                }
+                                        });
                                 }
                         );
+                        window.$("#shareUrlTitle").on("keyup", function() {
+                                getShareableLink({}, function(err, link) {
+                                        if (err === false) {
+                                                window.$("#shareUrlBox").val(link);
+                                        }
+                                });
+                        });
                         window.$(window).on("hashchange", function() {
                                 window.location.reload();
                         });
