@@ -1,7 +1,7 @@
 <?php
 // Install PSR-4-compatible class autoloader
-spl_autoload_register(function($class){
-        require 'lib' . DIRECTORY_SEPARATOR
+spl_autoload_register(function ($class) {
+    require 'lib' . DIRECTORY_SEPARATOR
         . str_replace('\\', DIRECTORY_SEPARATOR, ltrim($class, '\\')).'.php';
 });
 
@@ -10,22 +10,26 @@ $syntax = '';
 $output = '';
 
 if (isset($_POST['syntax'])) {
-        $syntax = $_POST['syntax'];
-} else if (isset($argv) && count($argv) > 2) {
-        $syntax = $argv[1];
+    $syntax = $_POST['syntax'];
+} elseif (isset($argv) && count($argv) > 2) {
+    $syntax = $argv[1];
 }
 
-if ($syntax === '') die();
+if ($syntax === '') {
+    die();
+}
 
 if (isset($_POST['input'])) {
-        $input = $_POST['input'];
-} else if (isset($argv) && count($argv) > 2) {
-        $input = $argv[2];
+    $input = $_POST['input'];
+} elseif (isset($argv) && count($argv) > 2) {
+    $input = $argv[2];
 }
 
-if ($input === '') die();
+if ($input === '') {
+    die();
+}
 
-switch($syntax) {
+switch ($syntax) {
 case 'javascript':
         $output = '<script>'.$input.'</script>';
         break;
@@ -38,9 +42,9 @@ case 'scss':
         require './lib/scssphp/scss.inc.php';
         $scss = new scssc();
         try {
-                $output = $scss->compile($input);
+            $output = $scss->compile($input);
         } catch (Exception $ex) {
-                $output = $ex->getMessage();
+            $output = $ex->getMessage();
         }
         break;
 default:
@@ -50,5 +54,3 @@ default:
 
 header("X-XSS-Protection: 0");
 echo $output . "\n";
-
-?>

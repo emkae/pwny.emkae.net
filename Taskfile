@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function start {
+        docker-compose -p pwnycodetest up -d
+}
+
+function stop {
+        docker-compose -p pwnycodetest down
+}
+
+function help {
+        echo "$0 <task> <args>"
+        echo "Tasks:"
+        tasks | cat -n
+}
+
+function tasks {
+        compgen -A function
+}
+
+function default {
+        tasks
+}
+
+${@:-default}
+
