@@ -30,15 +30,15 @@ if ($input === '') {
 }
 
 switch ($syntax) {
-case 'javascript':
+    case 'javascript':
         $output = '<script>'.$input.'</script>';
         break;
-case 'markdown':
+    case 'markdown':
         $skel = file_get_contents('./lib/com/walialu/markdown-style/markdown-skel.html');
         $transformed = Michelf\MarkdownExtra::defaultTransform($input);
         $output = str_replace('{{content}}', $transformed, $skel);
         break;
-case 'scss':
+    case 'scss':
         require './lib/scssphp/scss.inc.php';
         $scss = new scssc();
         try {
@@ -47,7 +47,7 @@ case 'scss':
             $output = $ex->getMessage();
         }
         break;
-default:
+    default:
         $output = $input;
         break;
 }
