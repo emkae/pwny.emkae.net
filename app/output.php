@@ -31,7 +31,7 @@ if ($input === '') {
 
 switch ($syntax) {
     case 'javascript':
-        $output = '<script>'.$input.'</script>';
+        $output = '<!DOCTYPE html><html><head><title></title></head><body><script>'.$input.'</script></body></html>';
         break;
     case 'markdown':
         $skel = file_get_contents('./lib/com/walialu/markdown-style/markdown-skel.html');
