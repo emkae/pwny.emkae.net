@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function __show_tasks {
+        compgen -A function | grep -v "^_"
+}
+
 function start {
         docker-compose -p pwnycodetest up -d
 }
@@ -22,5 +26,5 @@ function default {
         tasks
 }
 
-${@:-default}
+"${@:-default}"
 
