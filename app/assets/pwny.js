@@ -373,18 +373,24 @@
                                                                         var column =
                                                                                 url_params.get("c") ||
                                                                                 0;
-                                                                        EDITOR.scrollToLine(
-                                                                                line,
-                                                                                true,
-                                                                                true,
-                                                                                function() {}
+
+                                                                        setTimeout(
+                                                                                function() {
+                                                                                        EDITOR.scrollToLine(
+                                                                                                line,
+                                                                                                true,
+                                                                                                true,
+                                                                                                function() {}
+                                                                                        );
+                                                                                        EDITOR.gotoLine(
+                                                                                                line,
+                                                                                                column,
+                                                                                                true
+                                                                                        );
+                                                                                        EDITOR.focus();
+                                                                                },
+                                                                                2000
                                                                         );
-                                                                        EDITOR.gotoLine(
-                                                                                line,
-                                                                                column,
-                                                                                true
-                                                                        );
-                                                                        EDITOR.focus();
                                                                 }
                                                                 if (
                                                                         url_params.get("a") ===
